@@ -1,0 +1,18 @@
+คำสั่งรันใน WSL2 ด้วย UBUNTU
+1. ให้ติดตั้ง WSL2 เพื่อติดตั้ง Ubuntu ให้ครบและใส่ username และ password ให้เสร็จสิ้น
+2. ใน Ubuntu ใช้สามคำสั่งนี้ในการติดตั้ง Miniconda (ถ้ายังไม่มี), สร้าง env flu_analysis และลงเครื่องมือกับ lib ทั้งหมดให้ได้แก่ minimap2, samtools, medaka, seqkit, NanoPlot, nextclade, bcftools, gsl, biopython, matplotlib และ pandas ด้วยคำสั่ง
+      cd /mnt/c/Chim_nanopore
+      sed -i 's/\r$//' flu_pipeline.sh flu_tools.py
+      bash flu_pipeline.sh -s
+3. คำสั่งตรวจสอบการติดตั้งว่าติดตั้งได้ครบก่อนรันวิเคราะห์ (พิมพ์ต่อในหน้าต่าง Ubuntu เดิม)
+     source ~/miniconda3/etc/profile.d/conda.sh
+     conda activate flu_analysis
+     minimap2 --version && samtools --version | head -1 && medaka --version && seqkit version && nextclade --version
+3. ถ้าทุกตัวขึ้นเลขเวอร์ชัน ก็สามารถรันวิเคราะห์ต่อได้เลยด้วยคำสั่งนี้
+     bash flu_pipeline.sh -i /mnt/c/Chim_nanopore/barcode21 -e อีเมลจริง@example.com
+
+หมายเหตุ: การกำหนด path ในการวางไฟล์ในโปรแกรมทดสอบ
+1. สร้างโฟลเดอร์ Chim_nanopore และสร้างโฟลเดอร์ barcode21 ใน drive C: ดังนี้ C:/Chim_nanopore/barcode21
+2. วางโปรแกรม script ชื่อไฟล์ run_flu.bat , flu_tools.py และ flu_pipeline.sh ใน path Chim_nanopore
+3. วางไฟล์ที่ได้จากการรัน nanopore นามสกุล *.fastq.gz ไว้ใน path ทาง barcode21
+4. ทำการรันตามขั้นตอนได้...
